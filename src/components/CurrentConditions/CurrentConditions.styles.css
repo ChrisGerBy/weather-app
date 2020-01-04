@@ -1,5 +1,6 @@
 .weather_data {
   width: 50% !important;
+  max-width: 700px;
 }
 
 .weather_data th {
@@ -41,7 +42,7 @@ button.weather_data_tempscale-btn {
   border: 1px solid #ffffff;
 }
 
-@media screen and (max-width: 1020px) {
+@media screen and (max-width: 1050px) {
   .weather_data {
     width: 100% !important;
   }

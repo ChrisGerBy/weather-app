@@ -9,4 +9,8 @@ export default defineMessages({
     id: 'search.button',
     defaultMessage: 'Get weather',
   },
-})
+  getForecast: {
+    id: 'weather.getForecastButton',
+    defaultMessage: 'Forecast for 5 days',
+  },
+});

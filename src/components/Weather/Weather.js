@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import { FormattedMessage } from "react-intl";
-
 import CurrentConditions from '../CurrentConditions';
 import Forecast from "../Forecast";
-import TemperatureScale from '../TemperatureScale';
 import { getDate, getTime, convertTemperature, createWeatherIconLink, formatTimeZone } from "../../helpers/helper";
 import SearchLocation from "../SearchLocation";
 
 import './Weather.styles.css';
-import messages from './messages';
 import NoDataView from "../NoDataView";
 
 require('dotenv').config();
@@ -27,8 +22,10 @@ class Weather extends Component {
         timeZone: '',
       },
       currentConditions: {},
+      showCurrentConditions: true,
       temperatureScale: 'celsium',
       forecastData: [],
+      showForecast: false,
       locationFound: true,
     };
   }
@@ -48,13 +45,9 @@ class Weather extends Component {
         ...data[0],
         currentCity: city,
       },
+      showCurrentConditions: true,
+      showForecast: false,
     });
-
-    const { forecastData } = this.state;
-
-    if(forecastData.length) {
-      this.getForecastFor5Days();
-    }
   };
 
   getWeatherData = async () => {
@@ -89,6 +82,8 @@ class Weather extends Component {
         timeZone: `${data[0].TimeZone.Name} ${formatTimeZone(data[0].TimeZone.GmtOffset)}`,
       },
       locationFound: true,
+      showCurrentConditions: true,
+      showForecast: false,
     });
     window.localStorage.setItem(`city`, city);
     this.getWeatherData();
@@ -186,7 +181,11 @@ class Weather extends Component {
       }
     });
 
-    this.setState({ forecastData: data });
+    this.setState({
+      forecastData: data,
+      showForecast: true,
+      showCurrentConditions: false,
+    });
   };
 
   componentDidUpdate(prevProps, prevState) {
@@ -200,35 +199,27 @@ class Weather extends Component {
 
 
   render() {
-    const { currentConditions, temperatureScale, locationData, forecastData, locationFound } = this.state;
+    const { currentConditions, temperatureScale, locationData, forecastData, locationFound, showCurrentConditions, showForecast } = this.state;
     const { country, city } = locationData;
     const { language } = this.props;
 
 
     return (
       <div className="weather">
-        <SearchLocation searchLocation={() => this.searchLocation(city, language)} cityOnChange={(e) => this.cityOnChange(e)}/>
+        <SearchLocation searchLocation={() => this.searchLocation(city, language)} cityOnChange={(e) => this.cityOnChange(e)} getForecastFor5Days={this.getForecastFor5Days}/>
         {!locationFound && <NoDataView />}
-        {locationFound && !!Object.entries(currentConditions).length &&
-          <>
-            <CurrentConditions
-              city={currentConditions.currentCity}
-              country={country}
-              currentConditions={currentConditions}
-              temperatureScale={temperatureScale}
-              onChageTemperatureScale={this.onChageTemperatureScale}
-              showLocationInfo={this.showLocationInfo}
-            />
-            <Button variant="contained" color="primary" className="weather_data_forecast" onClick={this.getForecastFor5Days}>
-              <FormattedMessage {...messages.getForecast} />
-            </Button>
-          </>
+        {locationFound && showCurrentConditions && !!Object.entries(currentConditions).length &&
+        <CurrentConditions
+          city={currentConditions.currentCity}
+          country={country}
+          currentConditions={currentConditions}
+          temperatureScale={temperatureScale}
+          onChageTemperatureScale={this.onChageTemperatureScale}
+          showLocationInfo={this.showLocationInfo}
+        />
         }
-        {locationFound && !!forecastData.length &&
-        <>
-          <TemperatureScale changeTemperatureScale={this.onChageTemperatureScale} temperatureScale={temperatureScale}/>
-          <Forecast forecast={forecastData} temperatureScale={temperatureScale} />
-        </>
+        {locationFound && showForecast && !!forecastData.length &&
+        <Forecast forecast={forecastData} temperatureScale={temperatureScale} city={city} onChageTemperatureScale={this.onChageTemperatureScale}/>
         }
         </div>
     );
