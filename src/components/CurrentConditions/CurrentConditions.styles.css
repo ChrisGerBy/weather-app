@@ -1,0 +1,48 @@
+.weather_data {
+  width: 50% !important;
+}
+
+.weather_data th {
+  color: #FC6600;
+}
+
+.weather_data td {
+  color: #ffffff;
+}
+
+.weather_data .MuiTableCell-root,
+.weather_search-panel .MuiInput-input {
+  font-size: 18px !important;
+}
+
+.weather_data_current-weather img {
+  vertical-align: middle;
+}
+
+button.weather_data_tempscale-btn {
+  background-color: transparent;
+  color: #ffffff;
+  border: none !important;
+  margin: 0 15px;
+  font-size: 14px;
+  padding: 5px 10px;
+  vertical-align: middle;
+}
+
+.weather_data_location-info {
+  color: #ffffff !important;
+  margin: 0 15px !important;
+  padding: 5px 10px;
+  font-size: 10px !important;
+
+}
+
+.weather_data .MuiButton-outlined {
+  border: 1px solid #ffffff;
+}
+
+@media screen and (max-width: 1020px) {
+  .weather_data {
+    width: 100% !important;
+  }
+}

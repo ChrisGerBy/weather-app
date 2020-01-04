@@ -1,0 +1,7 @@
+.weather_search-panel {
+  margin-bottom: 40px;
+}
+
+.weather_search-panel > *:not(:last-child) {
+  margin-right: 15px;
+}

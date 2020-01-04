@@ -1,0 +1,21 @@
+.location-data__map {
+  width: 100%;
+  height: 50vh;
+  margin-top: 30px;
+}
+
+.location-data__table .MuiTableCell-root {
+  font-size: 16px !important;
+}
+
+.location-data__table th {
+  color: #FC6600;
+}
+
+.location-data__close-icon {
+  background-color: none;
+  border: none;
+  position: absolute;
+  right: 30px;
+  top: 20px;
+}

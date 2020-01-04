@@ -1,0 +1,61 @@
+.forecast {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  font-size: 18px;
+}
+
+.forecast_item {
+  color: #ffffff;
+  padding: 5px 10px;
+  text-align: center;
+}
+
+.forecast_item_date {
+  color:  #FC6600;
+}
+
+.forecast img {
+  vertical-align: middle;
+}
+
+.forecast_item_icons {
+  display: flex;
+  align-items: stretch;
+}
+
+.forecast_item_icons_block {
+  display: flex;
+  flex-direction: column;
+}
+
+.forecast_item_icons_block p {
+  text-align: center;
+}
+
+.forecast_item_temperature {
+  display: flex;
+  justify-content: center;
+}
+
+.forecast_item_temperature > *:not(:last-child) {
+  margin-right: 10px;
+}
+
+.forecast_item_temperature p {
+  padding: 5px;
+  position: relative;
+  color: #000000;
+  border-radius: 4px;
+}
+
+.forecast_item_temperature p:first-child {
+  top: 5px;
+  background-color: #BBF7F7;
+}
+
+.forecast_item_temperature p:last-child {
+
+  bottom: 5px;
+  background-color: #BBF7CF;
+}
