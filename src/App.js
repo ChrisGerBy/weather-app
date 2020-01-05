@@ -21,6 +21,7 @@ class App extends Component {
       language: 'en',
       showModal: false,
       locationData: {},
+      city: '',
     };
   }
 
@@ -38,12 +39,37 @@ class App extends Component {
       });
   };
 
+  getCityName = async (data) => {
+    const { latitude, longitude } = data.coords;
+    const url = `https://api.opencagedata.com/geocode/v1/json?q=${latitude},${longitude}&key=1e58aa5d387545bd905c7a06768ce2be`;
+    const response = await fetch(url);
+    const responseData =await response.json();
+    if (responseData.results.length === 1) {
+      const currentCity = responseData.results[0].components.city;
+      window.localStorage.setItem('city', currentCity);
+      this.setState({ city: currentCity });
+    }
+  };
+
   componentDidMount() {
-    this.getBackground();
+    const city = window.localStorage.getItem(`city`); 
     const language = window.localStorage.getItem('language');
     if (language) {
       this.setState({ language });
+    } else {
+      this.setState({ language: 'ru' });
+      window.localStorage.setItem('language', 'ru');
     }
+    if (!city) {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(this.getCityName);
+      } else {
+       console.log("Geolocation is not supported by this browser.");
+      }
+    } else {
+      this.setState({ city });
+    }
+    this.getBackground();
   }
 
   changeLanguage = (language) => {
@@ -65,8 +91,7 @@ class App extends Component {
   };
 
   render() {
-    const { background, language, backgroundError, showModal, locationData } = this.state;
-
+    const { background, language, backgroundError, showModal, locationData, city } = this.state;
     const backgroundPicture = {
       backgroundImage: `url('${background}')`,
       backgroundSize: 'cover',
@@ -75,7 +100,7 @@ class App extends Component {
     return (
       <IntlProvider locale={language} messages={messages[language]}>
         <div className="App" style={backgroundPicture}>
-          <Weather language={language} showLocationInfo={(data) => this.showLocationInfo(data)} />
+          { city && <Weather language={language} showLocationInfo={(data) => this.showLocationInfo(data)} />}
           <Settings language={language} changeLanguage={(lang) => this.changeLanguage(lang)} getBackground={this.getBackground} backgroundError={backgroundError} />
           {showModal && <Modal locationData={locationData} hideModal={this.hideModal} />}
         </div>
