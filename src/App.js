@@ -100,7 +100,7 @@ class App extends Component {
     return (
       <IntlProvider locale={language} messages={messages[language]}>
         <div className="App" style={backgroundPicture}>
-          { city && <Weather language={language} showLocationInfo={(data) => this.showLocationInfo(data)} />}
+          {city && <Weather language={language} showLocationInfo={(data) => this.showLocationInfo(data)} />}
           <Settings language={language} changeLanguage={(lang) => this.changeLanguage(lang)} getBackground={this.getBackground} backgroundError={backgroundError} />
           {showModal && <Modal locationData={locationData} hideModal={this.hideModal} />}
         </div>

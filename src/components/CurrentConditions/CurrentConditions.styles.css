@@ -35,7 +35,14 @@ button.weather_data_tempscale-btn {
   margin: 0 15px !important;
   padding: 5px 10px;
   font-size: 10px !important;
+}
 
+.weather_data_location-info .weather_data_location-info__icon {
+  display: none;
+}
+
+.weather_data_location-info p {
+  margin: 0 !important;
 }
 
 .weather_data .MuiButton-outlined {
@@ -46,4 +53,30 @@ button.weather_data_tempscale-btn {
   .weather_data {
     width: 100% !important;
   }
+}
+
+@media (max-width: 660px) {
+  .weather_data_location-info .weather_data_location-info__icon {
+    display: block;
+    margin: 0;
+  }
+
+  .weather_data_location-info .weather_data_location-info__label {
+    display: none;
+  }
+
+  .weather_data_location-info {
+    border: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    cursor: pointer;
+  }
+
+  .weather_data td  {
+    white-space: nowrap !important;
+  }
+
+  .weather_data .MuiTableCell-root {
+  font-size: 16px !important;
+}
 }

@@ -27,7 +27,8 @@ const CurrentConditions = ({
               {', '}
               {country}
               <Button variant="outlined" className="weather_data_location-info" onClick={showLocationInfo}>
-                <FormattedMessage {...messages.showLocationInfo}/>
+                <p className="weather_data_location-info__label"><FormattedMessage {...messages.showLocationInfo} /></p>
+                <Icon className="weather_data_location-info__icon">room</Icon>
               </Button>
             </TableCell>
           </TableRow>

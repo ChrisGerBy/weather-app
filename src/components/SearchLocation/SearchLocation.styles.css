@@ -13,10 +13,16 @@
   }
 }
 
-@media (max-width: 425px) {
+@media (max-width: 460px) {
   .weather_search-panel {
     display: flex;
     flex-direction: column;
+    margin-bottom: 0;
+    
+  }
+
+  .weather_search-panel > * {
+    width: 100%;
   }
 
   .weather_search-panel .MuiInput-root {
