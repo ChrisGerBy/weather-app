@@ -15,7 +15,7 @@ const Settings = ({
 
   const toggleSettings = () => {
     const displayStyle = settingsBlockRef.current.style.display;
-    if (displayStyle === 'none' || !displayStyle)  {
+    if (displayStyle === 'none' || !displayStyle) {
       settingsBlockRef.current.classList.add('mobile-view');
       settingsBlockRef.current.style.display = 'flex';
       closeIcon.current.style.display = 'block';
