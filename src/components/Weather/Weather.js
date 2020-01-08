@@ -55,13 +55,13 @@ class Weather extends Component {
     const { locationKey } = this.state.locationData;
     const { language } = this.props;
     const { city } = this.state.locationData;
-    const currentConditionsResponse = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&language=${language}`)
+    const currentConditionsResponse = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&language=${language}`)
     const currentConditions = await currentConditionsResponse.json();
     if (currentConditionsResponse.status === 200 && currentConditions.length) {
       this.handleWeatherResponse(city, currentConditions);
 
     } else {
-      const currentConditionsResponseEN = await fetch(`http://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&language=en`)
+      const currentConditionsResponseEN = await fetch(`https://dataservice.accuweather.com/currentconditions/v1/${locationKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&language=en`)
       const currentConditionsEN = await currentConditionsResponseEN.json();
       if (currentConditionsResponseEN.status === 200 && currentConditionsEN.length) {
         this.handleWeatherResponse(city, currentConditionsEN);
@@ -92,7 +92,7 @@ class Weather extends Component {
   searchLocation = async () => {
     const { language } = this.props;
     const { city } = this.state.locationData;
-    const response = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&q=${city}&language=${language}`);
+    const response = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&q=${city}&language=${language}`);
     const cityData = await response.json();
     if (response.status === 200 && cityData.length){
       window.localStorage.setItem(`city`, city);
@@ -100,7 +100,7 @@ class Weather extends Component {
         this.setLocationDataState(cityData);
     } else {
       // Try default search with english language
-      const responseEn = await fetch(`http://dataservice.accuweather.com/locations/v1/cities/search?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&q=${city}&language=en`);
+      const responseEn = await fetch(`https://dataservice.accuweather.com/locations/v1/cities/search?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&q=${city}&language=en`);
       const cityDataEn = await responseEn.json();
       if (response.status === 200 && cityDataEn.length) {
         window.localStorage.setItem(`city`, city);
