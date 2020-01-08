@@ -1,5 +1,8 @@
 .forecast {
   text-align: center;
+  width: 100%;
+  overflow: scroll;
+  min-height: 336px;
 }
 .forecast h2 {
   color: #ffffff;
@@ -7,9 +10,11 @@
 
 .forecast__data {
   display: flex;
-  flex-flow: row wrap;
   justify-content: center;
   font-size: 18px;
+  min-width: 100%;
+  min-height: 336px;
+  overflow-x: auto;
 }
 
 .forecast_item {
@@ -64,4 +69,10 @@
 .forecast_item_temperature p:last-child {
   bottom: 5px;
   background-color: #BBF7CF;
+}
+
+@media (max-width: 885px) {
+  .forecast__data {
+    justify-content: flex-start;
+  }
 }

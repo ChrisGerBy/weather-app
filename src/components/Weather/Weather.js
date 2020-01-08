@@ -128,7 +128,7 @@ class Weather extends Component {
   };
 
   getForecastFor5Days = async () => {
-    const { locationKey } = this.state.locationData;
+    const { locationKey, city } = this.state.locationData;
     const { language } = this.props;
     const response = await fetch(`https://dataservice.accuweather.com/forecasts/v1/daily/5day/${locationKey}?apikey=${process.env.REACT_APP_ACCUWEATHER_API_KEY}&language=${language}`);
     const forecastData = await response.json();
@@ -154,10 +154,16 @@ class Weather extends Component {
       }
     });
 
+    const { currentConditions } = this.state;
+
     this.setState({
       forecastData: data,
       showForecast: true,
       showCurrentConditions: false,
+      currentConditions: {
+        ...currentConditions,
+        currentCity: city,
+      }
     });
   };
 
@@ -186,7 +192,8 @@ class Weather extends Component {
 
   render() {
     const { currentConditions, temperatureScale, locationData, forecastData, locationFound, showCurrentConditions, showForecast } = this.state;
-    const { country, city } = locationData;
+    const { country } = locationData;
+    const { currentCity} = currentConditions;
 
     return (
       <div className="weather">
@@ -194,7 +201,7 @@ class Weather extends Component {
         {!locationFound && <NoDataView />}
         {locationFound && showCurrentConditions && !!Object.entries(currentConditions).length &&
         <CurrentConditions
-          city={currentConditions.currentCity}
+          city={currentCity}
           country={country}
           currentConditions={currentConditions}
           temperatureScale={temperatureScale}
@@ -203,7 +210,7 @@ class Weather extends Component {
         />
         }
         {locationFound && showForecast && !!forecastData.length &&
-        <Forecast forecast={forecastData} temperatureScale={temperatureScale} city={city} onChageTemperatureScale={this.onChageTemperatureScale}/>
+        <Forecast forecast={forecastData} temperatureScale={temperatureScale} city={currentCity} onChageTemperatureScale={this.onChageTemperatureScale}/>
         }
         </div>
     );
