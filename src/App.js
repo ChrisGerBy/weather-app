@@ -30,7 +30,7 @@ class App extends Component {
     fetch(`https://api.unsplash.com/search/photos/?page=1&per_page=20&query=${query}&client_id=${process.env.REACT_APP_UNSPLASH_ACCESS_KEY}`)
       .then((res) => res.json())
       .then((data) => {
-        const image = data.results[Math.floor(Math.random() * 20)].urls.raw;
+        const image = data.results[Math.floor(Math.random() * 20)].urls.regular;
         this.setState({ background: image });
       })
       .catch((error) => {
